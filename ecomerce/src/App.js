@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { AppStyled } from "./AppStyled"
+import Filters from "./Components/Filters/Filters"
+import Home from "./Components/ProductList/Home/Home"
+import ProductCard from "./Components/ProductList/ProductCard/ProductCard"
+import Cart from "./Components/ShoppingCart/Cart/Cart"
+import Items from "./Components/ShoppingCart/Items/Items"
+import GlobalStyled from "./GlobalStyled"
 
-function App() {
+
+export default function app() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AppStyled>
+      <GlobalStyled/>
+      <Filters />
+      <Home />
+      <Cart />
+    </AppStyled>
+  )
 }
-
-export default App;
