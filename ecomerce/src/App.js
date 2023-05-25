@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { AppStyled } from "./AppStyled"
 import Filters from "./Components/Filters/Filters"
 import Home from "./Components/ProductList/Home/Home"
@@ -9,7 +10,13 @@ import { productList } from "./assents/ProductsList"
 
 
 export default function app() {
-  console.log(productList)
+  
+  const [cart, setCart] = useState("");
+  const [amount, setAmount] = useState("");
+  const [minFilter, setMinFilter] = useState("");
+  const [maxFilter, setMaxFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
+
   return (
     <AppStyled>
       <GlobalStyled/>
