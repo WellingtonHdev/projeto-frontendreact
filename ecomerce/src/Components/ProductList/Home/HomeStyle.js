@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HomeStyle = styled.div `
  border: 2px solid black;
- 
+ width: 100%;
 `
 export const Header = styled.div`
 display: flex;
@@ -12,6 +12,6 @@ justify-content: space-between;
 
 export const Container = styled.div `
 display: flex;
-justify-content: flex-start;
+justify-content: center;
 flex-wrap: wrap;
 `

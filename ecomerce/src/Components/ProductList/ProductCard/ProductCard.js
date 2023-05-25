@@ -1,18 +1,19 @@
-import { ProductCardStyle } from "./ProductCardStyle"
+import { ProductCardStyle, ProductCardText } from "./ProductCardStyle"
 import { ImgStyle } from "./ProductCardStyle"
 
-export default function ProductCard() {
+export default function ProductCard({ productList }) {
+  console.log(productList)
   return (
 
     <ProductCardStyle>
       <div>
-        <ImgStyle>ProductCard</ImgStyle>
+        <ImgStyle> <img src={productList.imageUrl} width="100%" /> </ImgStyle>
       </div>
-      <div>
-        <p>Nome do Produto:</p>
-        <p>Valor:</p>
+      <ProductCardText>
+        <p>{productList.name} </p>
+        <p>Valor: {productList.value}R$</p>
         <button>Adicionar ao carrinho</button>
-      </div>
+      </ProductCardText>
     </ProductCardStyle>
   )
 }

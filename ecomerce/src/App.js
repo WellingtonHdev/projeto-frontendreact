@@ -5,14 +5,16 @@ import ProductCard from "./Components/ProductList/ProductCard/ProductCard"
 import Cart from "./Components/ShoppingCart/Cart/Cart"
 import Items from "./Components/ShoppingCart/Items/Items"
 import GlobalStyled from "./GlobalStyled"
+import { productList } from "./assents/ProductsList"
 
 
 export default function app() {
+  console.log(productList)
   return (
     <AppStyled>
       <GlobalStyled/>
       <Filters />
-      <Home />
+      <Home productList={productList} />
       <Cart />
     </AppStyled>
   )
