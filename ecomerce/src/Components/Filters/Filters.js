@@ -1,27 +1,43 @@
 import { FiltersStyled } from "./FiltersStyle";
 
 
-export default function Filters() {
+export default function Filters({
+  minFilter,
+  maxFilter,
+  searchFilter,
+  setMinFilter,
+  setMaxFilter,
+  setSearchFilter,
+}) {
   return (
     <FiltersStyled>
-      
+
       <h2>Filters</h2>
       <label>
-        Valor minímo:
+        Valor minima:
         <br />
-      <input type="number" />
+        <input type="number" value={minFilter} onChange={(e) => {
+          if (e.target.value < 0) {
+            alert("Não temos produtos com valor menor que zero")
+          } else { setMinFilter(e.target.value) }
+
+        }} />
       </label>
       <br />
       <label>
-      Valor máximo:
-      <br />
-      <input type="number" />
+        Valor maxima:
+        <br />
+        <input type="number" value={maxFilter} onChange={(e) =>{
+          if (e.target.value < 0) {
+            alert("Não temos produtos com valor menor que zero")
+          } else{
+          setMaxFilter(e.target.value)}}} />
       </label>
       <br />
       <label>
         Busca por nome:
         <br />
-      <input type="text" />
+        <input type="text" value={searchFilter} onChange={(e) => setSearchFilter(e.target.value)} />
       </label>
     </FiltersStyled>
   )

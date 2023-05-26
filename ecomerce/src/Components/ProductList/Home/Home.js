@@ -4,7 +4,7 @@ import { HomeStyle } from "./HomeStyle"
 import { Container } from "./HomeStyle"
 import { Header } from "./HomeStyle"
 
-export default function Home({ productList }) {
+export default function Home({ productList, amout, setAmout, cart, setCart }) {
 
   const [ordination, setOrdination] = useState("");
 
