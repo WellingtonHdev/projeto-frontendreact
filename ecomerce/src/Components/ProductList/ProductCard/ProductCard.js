@@ -1,17 +1,17 @@
 import { ProductCardStyle, ProductCardText } from "./ProductCardStyle"
 import { ImgStyle } from "./ProductCardStyle"
 
-export default function ProductCard({ productList }) {
+export default function ProductCard({ product, addCartProduct }) {
   return (
 
     <ProductCardStyle>
       <div>
-        <ImgStyle> <img src={productList.imageUrl} width="100%" /> </ImgStyle>
+        <ImgStyle> <img src={product.imageUrl} width="100%" /> </ImgStyle>
       </div>
       <ProductCardText>
-        <p>{productList.name} </p>
-        <p>Valor: R${productList.value}</p>
-        <button>Adicionar ao carrinho</button>
+        <p>{product.name} </p>
+        <p>Valor: R${product.value}</p>
+        <button onClick={()=>{addCartProduct(product);} } >Adicionar ao carrinho</button>
       </ProductCardText>
     </ProductCardStyle>
   )
