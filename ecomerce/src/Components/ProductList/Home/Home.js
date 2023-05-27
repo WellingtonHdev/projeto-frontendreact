@@ -4,7 +4,7 @@ import { HomeStyle } from "./HomeStyle"
 import { Container } from "./HomeStyle"
 import { Header } from "./HomeStyle"
 
-export default function Home({ productList }) {
+export default function Home({ productList, addCartProduct}) {
 
   const [ordination, setOrdination] = useState("");
   const [newListHome, setNewListHome] = useState(productList)
@@ -29,16 +29,16 @@ export default function Home({ productList }) {
     <HomeStyle>
       <Header>
         <spam>Quantidade de produtos: {productList.length} </spam>
-        <spam>Ordenar:
+        <spam>
           <select value={ordination} onChange={(e)=>onChangeSelect(e.target.value)}>
-            <option></option>
+            <option>Ordenar</option>
           <option>Crescente</option>
           <option>Decrescente</option>
         </select></spam>
       </Header>
       <Container>
         {newListHome.map((product, index) => (
-          <ProductCard key={index} productList={product} />
+          <ProductCard key={index} product={product} addCartProduct={addCartProduct} />
         ))}
       </Container>
     </HomeStyle>

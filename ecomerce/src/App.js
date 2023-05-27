@@ -14,8 +14,8 @@ import { react } from "@babel/types"
 
 export default function App() {
 
-  const [cart, setCart] = useState("");
-  const [amount, setAmount] = useState("");
+  const [cart, setCart] = useState([]);
+  const [amount, setAmount] = useState(0);
   const [minFilter, setMinFilter] = useState(NaN);
   const [maxFilter, setMaxFilter] = useState(NaN);
   const [searchFilter, setSearchFilter] = useState("");
@@ -35,6 +35,37 @@ export default function App() {
     setNewList(listFiltered);
   }, [maxFilter, minFilter, searchFilter]);
 
+  const addCartProduct = (product)=>{
+    let newCart = cart.filter(item => item.id !== product.id);
+    let productAdd = cart.find(item => item.id === product.id );
+    if(productAdd){
+      productAdd.quantity=productAdd.quantity+1;
+    }else{
+      productAdd = {
+        ...product,
+      };
+      productAdd.quantity=1;
+    }
+    newCart.push(productAdd);
+    const totalAmount=newCart.reduce((accumulator, item)=> accumulator+item.value*item.quantity,0);
+    setAmount(totalAmount);
+    newCart=newCart.sort((a,b)=> a.id - b.id);
+    setCart(newCart);
+  };
+
+  const removeProduct = (product)=> {
+    let removeCartProduct = cart.filter(item => item.id !==product.id);
+    let productRemove = cart.find(item => item.id === product.id );
+    if(productRemove.quantity > 1){
+      productRemove.quantity = productRemove.quantity-1;
+      removeCartProduct.push(productRemove);
+    }
+    const totalAmount=removeCartProduct.reduce((accumulator, item)=> accumulator+item.value*item.quantity,0);
+    setAmount(totalAmount);
+    removeCartProduct=removeCartProduct.sort((a,b)=> a.id - b.id);
+    setCart(removeCartProduct);
+  };
+
 
 
   return (
@@ -48,12 +79,12 @@ export default function App() {
         searchFilter={searchFilter}
         setSearchFilter={setSearchFilter} />
       <Home
-        productList={newList} />
+        productList={newList}
+        addCartProduct={addCartProduct} />
       <Cart
         amount={amount}
-        setAmount={setAmount}
-        cart={cart}
-        setCart={setCart} />
+        removeProduct={removeProduct}
+        cart={cart} />
     </AppStyled>
   )
 }
