@@ -1,6 +1,5 @@
 
-import React, { useState } from "react"
-
+import React, { useState, useEffect } from "react"
 import { AppStyled } from "./AppStyled"
 import Filters from "./Components/Filters/Filters"
 import Home from "./Components/ProductList/Home/Home"
@@ -12,13 +11,31 @@ import { productList } from "./assents/ProductsList"
 import { react } from "@babel/types"
 
 
+
 export default function App() {
 
   const [cart, setCart] = useState("");
   const [amount, setAmount] = useState("");
-  const [minFilter, setMinFilter] = useState(0);
-  const [maxFilter, setMaxFilter] = useState(0);
+  const [minFilter, setMinFilter] = useState(NaN);
+  const [maxFilter, setMaxFilter] = useState(NaN);
   const [searchFilter, setSearchFilter] = useState("");
+  const [newList, setNewList] = useState(productList);
+
+  useEffect(() => {
+    let listFiltered = productList;
+    if (minFilter && maxFilter && minFilter < maxFilter ) {
+      listFiltered = listFiltered.filter(item => item.value >= minFilter && item.value < maxFilter );
+    }
+    
+    if (searchFilter) {
+      const searchLowerCase = searchFilter.toLowerCase();
+      listFiltered = listFiltered.filter(item => item.name.toLowerCase().includes(searchLowerCase));
+    }
+    
+    setNewList(listFiltered);
+  }, [maxFilter, minFilter, searchFilter]);
+
+
 
   return (
     <AppStyled>
@@ -30,17 +47,13 @@ export default function App() {
         setMaxFilter={setMaxFilter}
         searchFilter={searchFilter}
         setSearchFilter={setSearchFilter} />
-      <Home 
-      productList={productList} 
-      amount={amount} 
-      setAmount={setAmount} 
-      cart={cart} 
-      setCart={setCart} />
-      <Cart 
-      amount={amount} 
-      setAmount={setAmount} 
-      cart={cart} 
-      setCart={setCart} />
+      <Home
+        productList={newList} />
+      <Cart
+        amount={amount}
+        setAmount={setAmount}
+        cart={cart}
+        setCart={setCart} />
     </AppStyled>
   )
 }
