@@ -19,7 +19,7 @@ export default function Filters({
         <input type="number" value={minFilter} onChange={(e) => {
           if (e.target.value < 0) {
             alert("Não temos produtos com valor menor que zero")
-          } else { setMinFilter(e.target.value) }
+          } else { setMinFilter(parseFloat(e.target.value)) }
 
         }} />
       </label>
@@ -31,7 +31,7 @@ export default function Filters({
           if (e.target.value < 0) {
             alert("Não temos produtos com valor menor que zero")
           } else{
-          setMaxFilter(e.target.value)}}} />
+          setMaxFilter(parseFloat(e.target.value))}}} />
       </label>
       <br />
       <label>

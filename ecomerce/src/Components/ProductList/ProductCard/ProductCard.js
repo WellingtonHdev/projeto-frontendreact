@@ -2,7 +2,6 @@ import { ProductCardStyle, ProductCardText } from "./ProductCardStyle"
 import { ImgStyle } from "./ProductCardStyle"
 
 export default function ProductCard({ productList }) {
-  console.log(productList)
   return (
 
     <ProductCardStyle>
@@ -11,7 +10,7 @@ export default function ProductCard({ productList }) {
       </div>
       <ProductCardText>
         <p>{productList.name} </p>
-        <p>Valor: {productList.value}R$</p>
+        <p>Valor: R${productList.value}</p>
         <button>Adicionar ao carrinho</button>
       </ProductCardText>
     </ProductCardStyle>
