@@ -4,8 +4,9 @@ export const ProductCardStyle = styled.div`
  border: 2px solid black;
  margin: 1%;
  width: 23%;
-height: 30%;
-
+ height: 30%;
+ border-radius: 10px;
+ padding: 1rem;
 `
 
 export const ImgStyle = styled.div`
@@ -21,6 +22,9 @@ height: 30%;
  display: flex;
  flex-direction: column;
  justify-content: space-around;
- 
+`
 
+export const CustomButton = styled.div`
+    background-color: blue;
+    
 `

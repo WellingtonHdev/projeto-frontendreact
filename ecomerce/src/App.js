@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react"
-import { AppStyled } from "./AppStyled"
+import { AppStyled, FooterStyled, HeaderStyled } from "./AppStyled"
 import Filters from "./Components/Filters/Filters"
 import Home from "./Components/ProductList/Home/Home"
 import ProductCard from "./Components/ProductList/ProductCard/ProductCard"
@@ -21,54 +21,82 @@ export default function App() {
   const [searchFilter, setSearchFilter] = useState("");
   const [newList, setNewList] = useState(productList);
 
+
+  useEffect(() => {
+    setTimeout(() => {
+      const cartString = JSON.stringify(cart)
+      const amountString = JSON.stringify(amount)
+
+      localStorage.setItem("cart", cartString)
+      localStorage.setItem("amount", amountString)
+    }, 10)
+  }, [cart]);
+
+  useEffect(()=> {
+    const cartSave = localStorage.getItem("cart")
+    const amountSave = localStorage.getItem("amount")
+    const cartArray = JSON.parse(cartSave)
+    const amountNumber = JSON.parse(amountSave)
+
+    setCart([...cartArray])
+    setAmount(amountNumber)
+  }, []);
+
+
+
+
   useEffect(() => {
     let listFiltered = productList;
-    if (minFilter && maxFilter && minFilter < maxFilter ) {
-      listFiltered = listFiltered.filter(item => item.value >= minFilter && item.value < maxFilter );
+    if (minFilter && maxFilter && minFilter < maxFilter) {
+      listFiltered = listFiltered.filter(item => item.value >= minFilter && item.value < maxFilter);
     }
-    
+
     if (searchFilter) {
       const searchLowerCase = searchFilter.toLowerCase();
       listFiltered = listFiltered.filter(item => item.name.toLowerCase().includes(searchLowerCase));
     }
-    
+
     setNewList(listFiltered);
   }, [maxFilter, minFilter, searchFilter]);
 
-  const addCartProduct = (product)=>{
+  const addCartProduct = (product) => {
     let newCart = cart.filter(item => item.id !== product.id);
-    let productAdd = cart.find(item => item.id === product.id );
-    if(productAdd){
-      productAdd.quantity=productAdd.quantity+1;
-    }else{
+    let productAdd = cart.find(item => item.id === product.id);
+    if (productAdd) {
+      productAdd.quantity = productAdd.quantity + 1;
+    } else {
       productAdd = {
         ...product,
       };
-      productAdd.quantity=1;
+      productAdd.quantity = 1;
     }
     newCart.push(productAdd);
-    const totalAmount=newCart.reduce((accumulator, item)=> accumulator+item.value*item.quantity,0);
+    const totalAmount = newCart.reduce((accumulator, item) => accumulator + item.value * item.quantity, 0);
     setAmount(totalAmount);
-    newCart=newCart.sort((a,b)=> a.id - b.id);
+    newCart = newCart.sort((a, b) => a.id - b.id);
     setCart(newCart);
   };
 
-  const removeProduct = (product)=> {
-    let removeCartProduct = cart.filter(item => item.id !==product.id);
-    let productRemove = cart.find(item => item.id === product.id );
-    if(productRemove.quantity > 1){
-      productRemove.quantity = productRemove.quantity-1;
+  const removeProduct = (product) => {
+    let removeCartProduct = cart.filter(item => item.id !== product.id);
+    let productRemove = cart.find(item => item.id === product.id);
+    if (productRemove.quantity > 1) {
+      productRemove.quantity = productRemove.quantity - 1;
       removeCartProduct.push(productRemove);
     }
-    const totalAmount=removeCartProduct.reduce((accumulator, item)=> accumulator+item.value*item.quantity,0);
+    const totalAmount = removeCartProduct.reduce((accumulator, item) => accumulator + item.value * item.quantity, 0);
     setAmount(totalAmount);
-    removeCartProduct=removeCartProduct.sort((a,b)=> a.id - b.id);
+    removeCartProduct = removeCartProduct.sort((a, b) => a.id - b.id);
     setCart(removeCartProduct);
   };
 
 
 
   return (
+    <div>
+      <HeaderStyled>
+      <h1>LabeComerce</h1>
+      </HeaderStyled>
     <AppStyled>
       <GlobalStyled />
       <Filters
@@ -86,5 +114,9 @@ export default function App() {
         removeProduct={removeProduct}
         cart={cart} />
     </AppStyled>
+    <FooterStyled>
+    <footer>Desenvolvido por Wellington</footer>
+    </FooterStyled>
+    </div>
   )
 }
