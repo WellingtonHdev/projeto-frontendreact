@@ -8,7 +8,7 @@ export default function Cart({ amount, removeProduct, cart}) {
         {cart.map((product, index)=>(
           <Item key={index} product={product} removeProduct={removeProduct} />
         ) )}
-        <span>valor total:{ amount }</span>
+        <span>valor total: { amount } </span>
         
       </CartStyle>
     )
